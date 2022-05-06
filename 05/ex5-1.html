@@ -23,13 +23,27 @@
             }
             var objects = await osql.connect(sql);
             console.log(objects);
+
             var html = '';
-            html = html + '<ul>';
+            html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.name + ' | ' + object.tweet + ' | ' + object.time + '</li>';
+                html = html + '<tr>';
+                html = html + '<td>' + object.name + '</td>';
+                html = html + '<td>' + object.tweet + '</td>';
+                html = html + '</tr>';
             }
-            html = html + '</ul>';
+            html = html + '</table>';
+
+            // 箇条書き表示形式
+            // var html = '';
+            // html = html + '<ul>';
+            // for (var i = 0; i < objects.length; i++) {
+            //     var object = objects[i];
+            //     html = html + '<li>' + object.name + ' | ' + object.tweet + ' | ' + object.time + '</li>';
+            // }
+            // html = html + '</ul>';
+            
             document.getElementById('result').innerHTML = html;
         }
     </script>
