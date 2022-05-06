@@ -22,6 +22,9 @@
             var objects = await osql.connect(sql);
             console.log(objects);
 
+            // ツイート後,テキストボックスを空にする
+            document.getElementById('tf2').value = "";
+
             document.getElementById('result').innerHTML = "tweetしました";
         }
     </script>
