@@ -25,8 +25,45 @@
             // ツイート後,テキストボックスを空にする
             document.getElementById('tf2').value = "";
 
-            document.getElementById('result').innerHTML = "tweetしました";
+            document.getElementById('tweetresult').innerHTML = "tweetしました";
         }
+
+        function button2Pressed() {
+                doSelect();
+            }
+
+            async function doSelect() {
+                var searchword = document.getElementById('search').value;
+                if (searchword == "") {
+                    var sql = 'select * from Tweets order by time desc limit 20';
+                } else {
+                    var sql = `select * from Tweets where tweet like "%${searchword}%" order by time desc limit 20`;
+                }
+                var objects = await osql.connect(sql);
+                console.log(objects);
+
+                var html = '';
+                html = html + '<table border="1">';
+                for (var i = 0; i < objects.length; i++) {
+                    var object = objects[i];
+                    html = html + '<tr>';
+                    html = html + '<td>' + object.name + '</td>';
+                    html = html + '<td>' + object.tweet + '</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+
+                // 箇条書き表示形式
+                // var html = '';
+                // html = html + '<ul>';
+                // for (var i = 0; i < objects.length; i++) {
+                //     var object = objects[i];
+                //     html = html + '<li>' + object.name + ' | ' + object.tweet + ' | ' + object.time + '</li>';
+                // }
+                // html = html + '</ul>';
+
+                document.getElementById('result').innerHTML = html;
+            }
     </script>
 
 </head>
@@ -39,7 +76,13 @@
     tweet:<input id="tf2" type="textfield">
     <button onclick="button1Pressed()">tweet</button>
     <br>
-    <p id="result"></p>
+    <p id="tweetresult"></p>
+    <hr>
+    <h1>Timeline</h1>
+    検索:<input id="search" type="textfield">
+    <button onclick="button2Pressed()">X</button>
+    <hr>
+    <p id="result">xxxx</p>
 </body>
 
 </html>
