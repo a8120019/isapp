@@ -12,6 +12,7 @@
     <script>
         $().ready(function () {
             doSelect();
+            timer = setInterval(doSelect, 2000);
         });
 
         function button1Pressed() {
