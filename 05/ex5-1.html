@@ -15,7 +15,12 @@
         }
 
         async function doSelect() {
-            var sql = 'select * from Tweets order by time desc limit 20';
+            var searchword = document.getElementById('search').value;
+            if (searchword == ""){
+                var sql = 'select * from Tweets order by time desc limit 20';
+            } else {
+                var sql = `select * from Tweets where tweet like "%${searchword}%" order by time desc limit 20`;
+            }
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
@@ -33,6 +38,7 @@
 
 <body>
     <h1>Tweets</h1>
+    検索:<input id="search" type="textfield">
     <button onclick="button1Pressed()">X</button>
     <hr>
     <p id="result">xxxx</p>
