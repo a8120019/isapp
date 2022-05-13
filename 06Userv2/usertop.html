@@ -15,8 +15,11 @@
         });
 
         function init() {
+            var id = sessionStorage.getItem('userid');
             var name = sessionStorage.getItem('username');
             document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん';
+            var html = "update.html?userid=" + id;
+            document.getElementById('change').href = html
         }
     </script>
 
@@ -26,6 +29,7 @@
     <h1>ユーザトップ</h1>
     <p id="welcome">ようこそxxさん</p>
     <hr>
+    <a id="change">ユーザ情報変更</a>
 
 </body>
 
