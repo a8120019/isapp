@@ -31,12 +31,35 @@
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
+
+        async function buttonPressed() {
+            var deleteid = document.getElementById('inputid').value;
+
+            var sql = `select * from Users where id="${deleteid}";`;
+            var objects = await osql.connect(sql);
+            if (objects.length <= 0) {  // ユーザが見つからない場合
+                document.getElementById('deletechecker').innerHTML = '対象のユーザが見つかりません';
+                return;
+            } else {  // ユーザが見つかった場合
+                var sql = `delete from Users where id="${deleteid}";`;
+                var objects = await osql.connect(sql);
+                document.getElementById('deletechecker').innerHTML = deleteid + 'のユーザ情報 を削除しました';
+            }
+
+            execSelect();
+        }
     </script>
 
 </head>
 
 <body>
     <h1>Users</h1>
+    <hr>
+    ID:<input id="inputid" value="" type="textfield">
+    <button onclick="buttonPressed()">削除</button>
+    <br>
+    <p id="deletechecker"></p>
+    <hr>
     <p id="result">xxxx</p>
 </body>
 
